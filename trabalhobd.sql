@@ -181,7 +181,7 @@ INSERT INTO consulta_procedimento (id_consulta, id_procedimento) VALUES
 (6, 10), (7, 7), (8, 5), (9, 3), (10, 6);
 
 --updates--
-UPDATE paciente SET telefone = '11925798888' WHERE id = 1;
+UPDATE paciente SET nome = 'Rodrigo Da Silva Guloso' WHERE id = 12;
 UPDATE dentista SET especialidade = 'Ortodontia' WHERE id = 2;
 UPDATE paciente SET telefone = '21984379627' WHERE id = 2
 ;
@@ -191,6 +191,8 @@ UPDATE paciente SET telefone = '21984379627' WHERE id = 2
 DELETE FROM horario_dentista WHERE id = 4;
 DELETE FROM paciente WHERE id = 5;
 DELETE FROM dentista WHERE id = 6;
+
+select * from paciente
 
 
 
