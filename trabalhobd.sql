@@ -1,4 +1,3 @@
---criando tabelas--
 CREATE TABLE paciente (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -19,7 +18,7 @@ CREATE TABLE dentista (
 
 CREATE TABLE horario_dentista (
     id SERIAL PRIMARY KEY,
-    id_dentista INT NOT NULL REFERENCES dentista(id),
+    id_dentista INT NOT NULL REFERENCES dentista(id) on delete cascade,
     dia_semana VARCHAR(20) NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fim TIME NOT NULL
@@ -32,8 +31,8 @@ CREATE TABLE procedimento_od (
 );
 CREATE TABLE consulta (
     id SERIAL PRIMARY KEY,
-    id_paciente INT NOT NULL REFERENCES paciente(id),
-    id_dentista INT NOT NULL REFERENCES dentista(id),
+    id_paciente int NOT NULL REFERENCES paciente(id) on delete cascade,
+    id_dentista INT NOT NULL REFERENCES dentista(id) on delete cascade,
     data DATE NOT NULL,
     hora TIME NOT NULL,
     descricao TEXT,
@@ -42,8 +41,8 @@ CREATE TABLE consulta (
 
 CREATE TABLE consulta_procedimento (
     id SERIAL PRIMARY KEY,
-    id_consulta INT NOT NULL REFERENCES consulta(id),
-    id_procedimento INT NOT NULL REFERENCES procedimento_od(id)
+    id_consulta INT NOT NULL REFERENCES consulta(id)on delete cascade,
+    id_procedimento INT NOT NULL REFERENCES procedimento_od(id) on delete cascade
 );
 --fim das tabelas--
 
@@ -83,6 +82,8 @@ FROM consulta c
 JOIN paciente p ON c.id_paciente = p.id
 JOIN dentista d ON c.id_dentista = d.id
 ORDER BY c.data DESC, c.hora DESC;
+
+drop view vw_consultas_ordenadas
 
 SELECT * FROM vw_consultas_ordenadas;
 --fim view data--
@@ -187,13 +188,10 @@ UPDATE paciente SET telefone = '21984379627' WHERE id = 2
 ;
 --fim updates--
 
--- Excluindo uma consulta específica
-DELETE FROM horario_dentista WHERE id = 4;
+-- Excluindo uma consulta específica --
 DELETE FROM paciente WHERE id = 5;
 DELETE FROM dentista WHERE id = 6;
 
 select * from paciente
-
-
-
-
+select * from dentista
+select * from horario_dentista
